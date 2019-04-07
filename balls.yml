@@ -1,0 +1,239 @@
+# AFTER USE CONSTANTS
+# DO_NOTHING - Do nothing after the pokeball used
+# TIMED - Catch back the entity after the count down reach 0
+# MULTIPLE - Give back the empty pokeball to the player
+ 
+safari:
+  name: "SAFARI"
+  price: 150
+  sellprice: 90
+  nametag-renaming: true
+  drop-at-place: false
+  sound: BLOCK_METAL_FALL
+  allow-to-follow: false
+  damage-others: false
+  tameable: false
+  allow-transfer-ownership: false
+  chances: 100
+  author: "BlueObsidian"
+  after-use: DO_NOTHING
+  #The item when it has no entity in it
+  empty-item:
+    display: "&7&lSAFARI&6&lBALL"
+    lore:
+    - "&7This item can hold an entity"
+    - "&7(SINGLE USE)"
+    - "&7"
+    - "&c* This ball will not tame the entity inside!"
+    - "&7"
+    - "&b&oClick on an entity with this"
+    - "&b&oitem to catch the entity"
+    type: ENDER_PEARL
+    glowing: false
+#The item when its filled with an entity
+  filled-item:
+    display: "&f&lSAFARI&6&lBALL"
+    lore:
+    - "&7This item contains an entity"
+    - "&7with data:"
+    - "&e<data>"
+    - "&7"
+    - "&b&oClick on a block with this"
+    - "&b&oitem to spawn this entity"
+    type: ENDER_PEARL
+    glowing: true
+#The crafting recipe, Shaped Recipe
+  recipe:
+    enable: true
+    name: SafariRecipe
+    #group: <ITEM GROUP>
+    items:
+      v: AIR
+      x: CHEST
+      y: REDSTONE
+      z: IRON_INGOT
+    recipe-pattern: "vzv,yxy,vyv" 
+poke:
+  name: POKE
+  author: BlueObsidian
+  chances: 100
+  price: 500
+  sellprice: 430
+  drop-at-place: true
+  nametag-renaming: true
+  sound: BLOCK_METAL_FALL
+  tameable: true
+  allow-to-follow: true
+  allow-transfer-ownership: true
+  damage-others: true
+  heal-price-fee: 0.0
+  after-use: DO_NOTHING
+  empty-item:
+    display: '&7&lPOKE&c&lBALL'
+    lore:
+    - '&7This item can hold an entity'
+    - '&7(SINGLE USE)'
+    - '&7'
+    - '&b&oClick on an entity with this'
+    - '&b&oitem to catch the entity'
+    type: ENDER_PEARL
+    glowing: false
+  filled-item:
+    display: '&f&lPOKE&c&lBALL'
+    lore:
+    - '&7This item contains an entity'
+    - '&7with data:'
+    - '&e<data>'
+    - '&7'
+    - '&b&oClick on a block with this'
+    - '&b&oitem to spawn this entity'
+    type: ENDER_PEARL
+    glowing: true
+  recipe:
+    enable: true
+    name: PokeballRecipe
+    items:
+      v: AIR
+      x: CHEST
+      y: REDSTONE
+      z: IRON_INGOT
+    recipe-pattern: "vzv,yxy,yyy"
+master:
+  name: MASTER
+  author: BlueObsidian
+  chances: 50
+  price: 25000
+  sellprice: -1
+  drop-at-place: false
+  nametag-renaming: true
+  sound: BLOCK_METAL_FALL
+  tameable: true
+  allow-to-follow: true
+  allow-transfer-ownership: true
+  damage-others: true
+  heal-price-fee: 250.0
+  after-use: MULTIPLE
+  empty-item:
+    display: '&7&lMASTER&e&lBALL'
+    lore:
+    - '&7This item can hold an entity'
+    - '&7'
+    - '&b&oClick on an entity with this'
+    - '&b&oitem to catch the entity'
+    type: ENDER_PEARL
+    glowing: false
+  filled-item:
+    display: '&f&lMASTER&e&lBALL'
+    lore:
+    - '&7This item contains an entity'
+    - '&7with data:'
+    - '&e<data>'
+    - '&7'
+    - '&b&oClick on a block with this'
+    - '&b&oitem to spawn this entity'
+    type: ENDER_PEARL
+    glowing: true
+  recipe:
+    enable: true
+    name: MasterRecipe
+    items:
+      v: GOLD_INGOT
+      x: CHEST
+      y: REDSTONE
+      z: NETHER_STAR
+    recipe-pattern: "vzv,yxy,yyy"
+timer:
+  name: TIMER
+  author: BlueObsidian
+  chances: 40
+  price: 10000
+  sellprice: -1
+  drop-at-place: true
+  nametag-renaming: true
+  sound: BLOCK_METAL_FALL
+  tameable: true
+  allow-to-follow: true
+  allow-transfer-ownership: true
+  damage-others: true
+  heal-price-fee: 200.0
+  after-use: TIMED
+  empty-item:
+    display: '&7&lTIMER&b&lBALL'
+    lore:
+    - '&7This item can hold an entity'
+    - '&7'
+    - '&b&oClick on an entity with this'
+    - '&b&oitem to catch the entity'
+    type: ENDER_PEARL
+    glowing: false
+  filled-item:
+    display: '&f&lTIMER&b&lBALL'
+    lore:
+    - '&7This item contains an entity'
+    - '&7with data:'
+    - '&e<data>'
+    - '&7'
+    - '&d* Released entity can stay up to 10 seconds'
+    - '&7'
+    - '&b&oClick on a block with this'
+    - '&b&oitem to spawn this entity'
+    type: ENDER_PEARL
+    glowing: true
+  recipe:
+    enable: true
+    name: TimerRecipe
+    items:
+      v: AIR
+      x: CHEST
+      y: REDSTONE
+      z: WATCH
+    recipe-pattern: "vzv,yxy,yyy"
+net:
+  name: NET
+  author: BlueObsidian
+  chances: 100
+  price: 3500
+  sellprice: 1900
+  drop-at-place: false
+  nametag-renaming: true
+  sound: BLOCK_METAL_FALL
+  tameable: false
+  allow-to-follow: false
+  allow-transfer-ownership: false
+  damage-others: false
+  heal-price-fee: 100.0
+  after-use: MULTIPLE
+  empty-item:
+    display: '&7&lNET&3&lBALL'
+    lore:
+    - '&7This item can hold an entity'
+    - '&7(MULTIPLE USE)'
+    - '&7'
+    - '&c* This ball will not tame the entity inside!'
+    - '&7'
+    - '&b&oClick on an entity with this'
+    - '&b&oitem to catch the entity'
+    type: ENDER_PEARL
+    glowing: false
+  filled-item:
+    display: '&f&lNET&3&lBALL'
+    lore:
+    - '&7This item contains an entity'
+    - '&7with data:'
+    - '&e<data>'
+    - '&7'
+    - '&b&oClick on a block with this'
+    - '&b&oitem to spawn this entity'
+    type: ENDER_PEARL
+    glowing: true
+  recipe:
+    enable: true
+    name: NetRecipe
+    items:
+      v: AIR
+      x: CHEST
+      y: REDSTONE
+      z: NETHER_STAR
+    recipe-pattern: "vzv,yxy,vyv"
+
+    
