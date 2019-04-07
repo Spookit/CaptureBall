@@ -1,0 +1,376 @@
+#Read only file
+
+# Actions
+      # BUY - Buy the item (parameter: the item amount)
+      # SELL - Sell one empty ball (parameter: the item amount)
+      # SELL_ALL - Sell all empty ball
+      # SELL_FILLED - Sell one filled ball (parameter: the item amount)
+      # SELL_FILLED_ALL - Sell all filled ball
+      # SHOW_RECIPE - Show recipe GUI for the item
+      # EXIT - Close the GUI
+      # HEAL - Heal the ball's entity
+      # SET_VALUE - Set settings value (parameter: settings value, properties: the settings key)
+      # ADD_VALUE - Add settings value (parameter: settings value, properties: the settings key)
+      # REM_VALUE - Remove settings value (parameter: settings value, properties: the settings key)
+      
+      # Properties & Parameter Usage: "<Action>:<Parameter>:<Properties>"
+      # Parameter Usage: "<Action>:<Parameter>"
+      # without parameter: "<Action>"
+      
+# Item Type ("<, >" = placeholder)
+#    [MaterialName] - Show item
+#    [MaterialName]:[MaterialData] - Show item with material data
+#    [randommaterial] - Show random item
+#    <randommaterial>:<randomdata> - Show random item with random material data (0-15)
+#    [MaterialName]:<randomdata> - Show item with random material data (0-15)
+
+# Placeholders
+      # money - Show the player's balance
+      # price - Show the ball's price (only if "ball" field specified, otherwise it will taken from player's item in hand ball type)
+      # owner_name - Show the owner name (only if "ball" field specified, otherwise it will taken from player's item in hand ball type)
+      # owner_uuid - Show the owner uuid (only if "ball" field specified, otherwise it will taken from player's item in hand ball type)
+      # is_followable - Show the ball followable settings, true / false (only if "ball" field specified, otherwise it will taken from player's item in hand ball type)
+      # is_damageothers - Show the ball damageothers settings
+#
+# How to use Item with Player Head
+# 1. Set the item type to PLAYER_HEAD or SKULL_ITEM:3
+# 2. Define "skullName" value using the player's skull name or define "skullUUIDMost" and "skullUUIDLeast" value using player's UUID.
+#
+# the permission based by default config: captureball.menu.settings
+settings:
+  command: "ballsettings"
+  aliases:
+  - "ballsetting"
+  - "balloption"
+  - "balloptions"
+  - "ball"
+  type: CHEST
+  size: 27
+  title: "centerinv%&8- &1Ball &8-"
+  # this is required for TransferOwnership and ToggleFollowable settings
+  required-to-hold-filled-ball: true
+  items:
+    border:
+      display: "&7"
+      type: BLACK_STAINED_GLASS_PANE
+      slots: [0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25,26]
+    border2:
+      display: "&7"
+      type: IRON_BARS
+      slots: [10,16]
+    transfer-ownership:
+      display: "&8[ &aTransfer Ownership &8]"
+      lore: 
+      - "&7Give ownership to other player"
+      - "&7"
+      - "&5Current Owner: &d<owner_name>"
+      type: PLAYER_HEAD
+      left-click: "SET_VALUE:0:TRANSFER_OWNERSHIP"
+      right-click: "SET_VALUE:0:TRANSFER_OWNERSHIP"
+      shift-left-click: "SET_VALUE:0:TRANSFER_OWNERSHIP"
+      shift-right-click: "SET_VALUE:0:TRANSFER_OWNERSHIP"
+      slot: 11
+    toggle-followable:
+      display: "&8[ &aToggle Followable &8]"
+      lore:
+      - "&7Toggle followable option on the ball"
+      - "&7When this is enabled, the mob will"
+      - "&7always follow you! But the mob can't"
+      - "&7follow you if you are too far away from it"
+      - "&7"
+      - "&5Current Status: &d<is_followable>"
+      type: LEAD
+      left-click: "ADD_VALUE:1:TOGGLE_FOLLOWABLE"
+      right-click: "ADD_VALUE:1:TOGGLE_FOLLOWABLE"
+      shift-left-click: "ADD_VALUE:1:TOGGLE_FOLLOWABLE"
+      shift-right-click: "ADD_VALUE:1:TOGGLE_FOLLOWABLE"
+      slot: 12
+    toggle-damageothers:
+      display: "&8[ &aToggle Damage Others &8]"
+      lore:
+      - "&7Toggle damage others option on the ball"
+      - "&7When this is enabled, the mob will freely"
+      - "&7attack other entities around without any"
+      - "&7attack command from you"
+      - "&7"
+      - "&5Current Status: &d<is_damageothers>"
+      type: IRON_SWORD
+      left-click: "ADD_VALUE:1:TOGGLE_DAMAGEOTHERS"
+      right-click: "ADD_VALUE:1:TOGGLE_DAMAGEOTHERS"
+      shift-left-click: "ADD_VALUE:1:TOGGLE_DAMAGEOTHERS"
+      shift-right-click: "ADD_VALUE:1:TOGGLE_DAMAGEOTHERS"
+      slot: 13
+    toggle-locked:
+      display: "&8[ &aToggle Locked &8]"
+      lore:
+      - "&7Toggle locked option on the ball"
+      - "&7When this ball is locked, the mob"
+      - "&7can not captured by other players."
+      - "&7"
+      - "&5Current Status: &d<is_locked>"
+      type: FENCE
+      left-click: "ADD_VALUE:1:TOGGLE_LOCK"
+      right-click: "ADD_VALUE:1:TOGGLE_LOCK"
+      shift-left-click: "ADD_VALUE:1:TOGGLE_LOCK"
+      shift-right-click: "ADD_VALUE:1:TOGGLE_LOCD"
+      slot: 14
+    exit-item:
+      display: "&8[ &c&lEXIT&8 ]"
+      type: ARROW
+      left-click: "EXIT"
+      slot: 15
+# the permission based by default config: captureball.menu.doctorgui
+doctorgui:
+  command: "balldoctor"
+  aliases:
+  - "pd"
+  - "doctor"
+  title: "centerinv%&8- &1Health Services &8-"
+  type: HOPPER
+  # Force player to hold a filled ball
+  required-to-hold-filled-ball: true
+  items:
+    ball-item:
+      display: "&a- &a&lHEAL CURRENT BALL &a-"
+      lore:
+      - "&5Heal Price: &d<healprice>"
+      - "&7"
+      - "&3* Click to Heal"
+      type: GOLDEN_APPLE
+      left-click: "HEAL"
+      right-click: "HEAL"
+      shift-left-click: "HEAL"
+      shift-right-click: "HEAL"
+      slot: 2
+    info:
+      display: "&8[ &a&l INFORMATION &8]"
+      lore:
+      - "&7Heal your ball's entity using this tool"
+      - "&8&o* Not recommended for single use balls and LOVEBALL"
+      slot: 0
+      type: BOOK
+    border:
+      display: "&7"
+      slots: [1,3]
+      type: BLACK_STAINED_GLASS_PANE
+    exit-item:
+      display: "&8[ &c&lEXIT&8 ]"
+      type: ARROW
+      left-click: "EXIT"
+      slot: 4
+
+skills-upgrade:
+  command: "skill"
+  aliases:
+  - "skills"
+  - "pokeskill"
+  - "pokeskills"
+  title: "centerinv%&8- &1Mob Skill &8-"
+  type: "HOPPER"
+  required-to-hold-filled-ball: true
+  items:
+    info:
+      display: "&8[ &a&l INFORMATION &8]"
+      lore:
+      - "&7Skill is an ability of a pokemob."
+      - "&7Skills are triggered when your pokemob attack/damage other mob"
+      slot: 0
+      type: BOOK
+    stun-skill:
+      display: "&a- &d&lSTUN &a-"
+      lore:
+      - "&5Slowing down the movement of the targetted mob"
+      - "&7"
+      - "&7Current Level: &b<level:STUN>"
+      - "&7Upgrade Cost: &b<cost:STUN>"
+      - "&7"
+      - "&3 * Click here to upgrade *"
+      type: GLISTERING_MELON_SLICE
+      left-click: "UPGRADE_SKILL:1:STUN"
+      slot: 1
+    freeze-skill:
+      display: "&a- &d&lFREEZE &a-"
+      lore:
+      - "&5Freeze the mob movement"
+      - "&7"
+      - "&7Current Level: &b<level:FREEZE>"
+      - "&7Upgrade Cost: &b<cost:FREEZE>"
+      - "&7"
+      - "&3 * Click here to upgrade *"
+      type: GOLDEN_CARROT
+      left-click: "UPGRADE_SKILL:1:FREEZE"
+      slot: 2
+    venom-skill:
+      display: "&a- &d&lVENOM &a-"
+      lore:
+      - "&5Poison the mob with venom"
+      - "&7"
+      - "&7Current Level: &b<level:VENOM>"
+      - "&7Upgrade Cost: &b<cost:VENOM>"
+      - "&7"
+      - "&3 * Click here to upgrade *"
+      type: MAGMA_CREAM
+      # the parameter "1" does not affect anything
+      left-click: "UPGRADE_SKILL:1:VENOM"
+      slot: 3
+    exit-item:
+      display: "&8[ &c&lEXIT&8 ]"
+      type: ARROW
+      left-click: "EXIT"
+      slot: 4
+# the permission based by default config: captureball.menu.shop
+shop:
+  command: "shop"
+  aliases:
+  - "ps"
+  - "shops"
+  title: "centerinv%&8- &1Ball Shop &8-"
+  type: "CHEST"
+  #type must be CHEST to change the size value
+  size: 27
+  refreshTicks: 4
+  items:
+    ball-item:
+      ball: POKE
+      display: "&a- &f&lPOKE&c&lBALL &a-"
+      lore:
+      - "&7A regular ball."
+      - "&7Single use only."
+      - "&7"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 10
+    masterball-item:
+      ball: MASTER
+      display: "&a- &f&lMASTER&e&lBALL &a-"
+      lore:
+      - "&7A usefull ball."
+      - "&7Multiple use!"
+      - "&7"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 11
+    timerball-item:
+      ball: TIMER
+      display: "&a- &f&lTIMER&b&lBALL &a-"
+      lore:
+      - "&7A ball with timer."
+      - "&7After 10 seconds entity released, the ball"
+      - "&7will catch the entity back"
+      - "&7Multiple use!"
+      - "&7"
+      - "&5Timer: &d10 seconds"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 12
+    loveball-item:
+      ball: LOVE
+      display: "&a- &f&lLOVE&d&lBALL &a-"
+      lore:
+      - "&7A special ball."
+      - "&7It heals the entity inside."
+      - "&7Single use only."
+      - "&7"
+      - "&5Ability: &dHealing"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 13
+    safari-item:
+      ball: SAFARI
+      display: "&a- &f&lSAFARI&6&lBALL &a-"
+      lore:
+      - "&7A ball that only catch a mob without claiming it."
+      - "&7The mob inside won't protect you from other entity."
+      - "&7Single use only."
+      - "&7"
+      - "&5Ability: &dLiterally nothing"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 14
+    exit-item:
+      display: "&8[ &c&lEXIT&8 ]"
+      type: ARROW
+      left-click: "EXIT"
+      slot: 16
+    net-item:
+      ball: NET
+      display: "&a- &f&lNET&3&lBALL &a-"
+      lore:
+      - "&7A ball that only catch a mob without claiming it."
+      - "&7The mob inside won't protect you from other entity."
+      - "&7Multiple use!"
+      - "&7"
+      - "&5Ability: &dLiterally nothing (MULTIPLE USE)"
+      - "&5Price: &d<price>"
+      - "&5Sell Price: &d<sellprice>"
+      - "&5Balance: &d<money>"
+      - "&7"
+      - "&3* Left Click to Buy"
+      - "&3* Right Click to Show Recipe"
+      - "&3* Shift + Left Click to Sell Empty Ball"
+      - "&3* Shift + Right Click to Sell Filled Ball"
+      type: ENDER_PEARL
+      left-click: "BUY:1"
+      right-click: "SHOW_RECIPE"
+      shift-left-click: "SELL:1"
+      shift-right-click: "SELL_FILLED:1"
+      slot: 15
+    border-item:
+      display: "&7"
+      type: "STAINED_GLASS_PANE:<randomdata>"
+      slots: [0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,22,23,24,25,26]
