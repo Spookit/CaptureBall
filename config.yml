@@ -1,0 +1,582 @@
+# -- CaptureBall Plugin Configuration --
+# this file is read-only by the plugin
+# it won't save any of player data here
+
+# The config version
+# Do not change it unless it is important to change
+# (if this value is not equals with the default plugin config version,
+#  the plugin will save the old config and regenerate new default config)
+config-version: "config_1.1"
+
+# Yaml List:
+# list: []                  <- This is empty list
+# list: ['a','b']           <- This is filled list (array-like list, save more space/lines)
+# list:                     /
+# - 'a'                    <======  This is filled list.
+# - 'b'                     \
+
+# Plugin Messages Language (locales)
+locales-dir: locales
+
+#Detect and use locales based player language
+per-player-locale: true
+
+# Always check economy service, when its unavailable, the plugin will switch to another service.
+# to make sure the plugin economy handling work properly, it is recommended to turn it on. 
+dynamic-economy-wrapper: true
+
+# This option is required for some economy wrappers
+# This will instead request using UUID than player name
+# Recommended to disable it for Cracked Servers
+economy-use-uuid: true
+
+#Specify the wrapper manually. (requires "dynamic-economy-wrapper" to false)
+#
+# Wrapper List:
+# - thito.captureball.economywrappers.EmptyWrapper ( This will disable economy system )
+# - thito.captureball.economywrappers.VaultWrapper ( Vault )
+# - thito.captureball.economywrappers.EssentialsWrapper ( Essentials )
+# - thito.captureball.economywrappers.CoinsAPIWrapper ( CoinsAPI by Pradotec )
+# - thito.captureball.economywrappers.CoinsWrapper ( Coins by Beelzebu )
+
+economy-wrapper: "thito.captureball.economywrappers.VaultWrapper"
+
+#Plugin Permission
+main-permission: "captureball.use"
+admin-permission: "captureball.admin"
+creative-permission: "captureball.use.creative"
+menu-permission: "captureball.menu.<menu>"
+showrecipe-permission: "captureball.use.showrecipe"
+sign-permission: "captureball.use.sign"
+sign-admin-permission: "captureball.admin.sign"
+renaming-permission: "captureball.nametagrename"
+block-drops-permission: "captureball.blockdrops"
+# this will give you 100% chance of the entity being captured by your captureball
+no-chance-permission: "captureball.chance.alwayssuccess"
+
+#Skill system.
+# Effects that are applied to the target when the pokemob attacked the target
+skill-effect: 
+  enable: true
+skills:
+  stun:
+    name: "Stun"
+    id: "STUN"
+    skill-effect: "&d&l&k!! &d&lSTUNNED &k!!"
+    # Leave it empty to enable all. (Type: list string)
+    # Mobs that affected by this skill.
+    mobs: []
+    # Mobs that are immune of this skill
+    immune-mobs: []
+    levels:
+      beginner:
+        level: 1
+        effects:
+        - effect: SLOW
+          amplifier: 1
+          # in ticks. 20ticks = 1 second
+          duration: 40
+          has-icon: false
+          #has-particles: false
+          #ambient: false
+        rate: 40
+        # Upgrade Price
+        cost:
+          type: GOLD_INGOT
+          amount: 48
+      intermediate:
+        level: 2
+        effects:
+        - effect: SLOW
+          amplifier: 2
+          duration: 50
+          has-icon: false
+        rate: 55
+        cost:
+          type: GOLD_INGOT
+          amount: 64
+      advanced:
+        level: 3
+        effects:
+        - effect: SLOW
+          amplifier: 3
+          duration: 60
+          has-icon: false
+        rate: 60
+        cost:
+          type: GOLD_INGOT
+          amount: 90
+  venom:
+    name: "Venom"
+    id: "VENOM"
+    skill-effect: "&d&l&k!! &d&lPOISONED &k!!"
+    mobs: []
+    # Mobs that are immune of this skill
+    immune-mobs: 
+    - SPIDER
+    levels:
+      beginner:
+        level: 1
+        effects:
+        - effect: POISON
+          amplifier: 1
+          duration: 40
+          has-icon: false
+        rate: 50
+        cost:
+          type: GOLD_INGOT
+          amount: 100
+      # level name is ignored, you can freely name it whatever you want
+      intrmdt:
+        level: 2
+        effects:
+        - effect: POISON
+          amplifier: 2
+          duration: 40
+          has-icon: false
+        rate: 70
+        cost:
+          type: GOLD_INGOT
+          amount: 150
+      expert:
+        level: 3
+        effects:
+        - effect: POISON
+          amplifier: 2
+          duration: 70
+          has-icon: false
+        rate: 75
+        cost:
+          type: GOLD_INGOT
+          amount: 200
+  freeze:
+    name: "Freeze"
+    id: "FREEZE"
+    skill-effect: "&d&l&k!! &d&lFROZEN &k!!"
+    immune-mobs: []
+    mobs: []
+    # Example ->
+    #mobs:
+    #- SPIDER
+    #- ZOMBIE
+    levels:
+      beginner:
+        level: 1
+        effects:
+        - effect: SLOW
+          amplifier: 1000000
+          duration: 20
+          has-icon: false
+        - effect: WEAKNESS
+          amplifier: 1000000
+          duration: 20
+          has-icon: false
+        - effect: SLOW_DIGGING
+          amplifier: 1000000
+          has-icon: false
+          duration: 20
+        rate: 30
+        cost:
+          type: GOLD_INGOT
+          amount: 128
+      intermediate:
+        level: 2
+        effects:
+        effects:
+        - effect: SLOW
+          amplifier: 1000000
+          duration: 30
+          has-icon: false
+        - effect: WEAKNESS
+          amplifier: 1000000
+          duration: 30
+          has-icon: false
+        - effect: SLOW_DIGGING
+          amplifier: 1000000
+          duration: 30
+          has-icon: false
+        rate: 35
+        cost:
+          type: GOLD_INGOT
+          amount: 192
+      advanced:
+        level: 3
+        effects:
+        effects:
+        - effect: SLOW
+          amplifier: 1000000
+          duration: 40
+          has-icon: false
+          #has-particles: false
+        - effect: WEAKNESS
+          amplifier: 1000000
+          duration: 40
+          has-icon: false
+        - effect: SLOW_DIGGING
+          amplifier: 1000000
+          duration: 40
+          has-icon: false
+        rate: 50
+        cost:
+          type: GOLD_INGOT
+          amount: 256
+    
+dropped-captureball:
+  dropped-item-name-visible: true
+  # if false, the plugin will take the name from locales ("messages.item-missed") 
+  use-itemstack-name: true
+
+lockable-mob:
+  enable: true
+  # leave it empty to enable all mobs to be lockable
+  mobs: []
+
+#Special permissioned entity to capture (must be lowercase)
+special-permissioned-entity:
+- enderman
+- iron_golem
+- evoker
+- blaze
+- phantom
+- shulker
+special-entity-permission: "captureball.capture.<mob>"
+  
+# These mobs are not catchable
+blacklisted-mob:
+- ENDER_DRAGON
+- WITHER
+
+# Drops captureball when a block is broken, to disable this, just remove this section
+block-drops:
+  STONE:
+  # ball type - percentage (1-100)
+    POKE: 3
+    SAFARI: 2
+  GRASS_BLOCK:
+    POKE: 1
+    SAFARI: 2
+  SPAWNER:
+    NET: 50
+    MASTER: 30
+block-drops-effect: MOBSPAWNER_FLAMES
+
+hologram:
+  show-when-catched: true
+  show-when-released: true
+  show-when-levelup: true
+
+leveling-system:
+  # Leveling System allows your Mob to upgrade their attributes when they do something
+  # requires "taming system" to be enabled.
+  enabled: true
+  # Placeholders
+  #
+  # {0} - The attribute name
+  # {1} - The final attribute value
+  # {2} - The increasement
+  hologram: "&e{0} level up!"
+  # Event Types
+  # EntityDeathEvent - Run when your mob killed another mob
+  # EntityDamageEvent - Run when your mob damaged other mob
+  #
+  # allow-multiple means, allow more than 1 attributes to level up
+  #
+  # NOTE:
+  # This feature only works with CREATURE type!
+  # Your mobs won't get level upgraded by killing passive animals!
+  levels:
+    type1:
+      events:
+      - EntityDeathEvent
+      allow-multiple: true
+      # Chances (percentage, 0-100)
+      chances: 100
+      # leave it empty to make it enabled for all mobs
+      mob-types: []
+      attributes:
+        maxhealth:
+          name: "generic.maxHealth"
+          min: 0.001
+          max: 0.05
+        damage:
+          name: "generic.attackDamage"
+          min: 0.001
+          max: 0.02
+        speed:
+          name: "generic.movementSpeed"
+          min: 0.00005
+          max: 0.0003
+    singleLvlUp:
+      events:
+      - EntityDamageByEntityEvent
+      allow-multiple: false
+      chances: 35
+      mob-types: []
+      attributes:
+        followrange:
+          name: "generic.followRange"
+          min: 0.005
+          max: 0.05
+        knockResists:
+          name: "generic.knockbackResistance"
+          min: 0.005
+          max: 0.01
+  
+#Chances (percentage) of entity being captured by captureball
+# By interacting with entity directly, it will give you 100% chance of
+# the entity being captured by the captureball.
+# Rest of balls are configurable on the "balls.yml"
+chances:
+  LOVE: 25
+
+# -- Recipe GUI --
+recipe-gui:
+  enabled: true
+
+# -- Custom Menus GUI --
+gui-menus:
+  enabled: true
+
+# Transfer Ownership not just to Online Players, but Offline Players too!
+# not recommended for HUGE servers, it may lag while taking the data from server.
+offline-transfer-ownership: false
+
+# Find players to transfer the ball ownership within radius
+# (set it to -1 to get all players)
+transfer-ownership-radius: 30
+
+# The timer for "TIMED" after use type (in seconds)
+timer-delay: 10
+
+# -- Shop System --
+sign-shop:
+  header: "[captureball]"
+  # How to create sign shop
+  # ----------------------
+  # [header]
+  # <ACTION>
+  # <BALL>
+  # <AMOUNT>
+  # ----------------------
+  #
+  # Actions
+  # BUY - Buy the item
+  # SELL - Sell one empty ball
+  # SELL_ALL - Sell all empty ball
+  # SELL_FILLED - Sell one filled ball
+  # SELL_FILLED_ALL - Sell all filled ball
+  # HEAL - Heal the captureball's entity
+  format:
+  - "&8[&fPoke&4Ball&8]"
+  - "<action> (<price>)"
+  - "<amount>x <ball>"
+  - "<totalprice>"
+  format-all:
+  - "&8[&fPoke&4Ball&8]"
+  - "<action>"
+  - "<ball>"
+  database: "signs.yml"
+  
+# Entity Price is price for filled captureballs
+# syntax: captureball Empty Price + Entity Price
+entity-price:
+  default: 100
+  SPIDER: 150
+  CAVE_SPIDER: 200
+entity-heal-price:
+  default: 5000
+  SKELETON: 5200
+  
+# Rest of balls are configurable on the "balls.yml"
+heal-price-fee:
+  LOVE: 0
+# -- Owning System --
+# Allow players to own entities by catching them
+taming:
+# When its enabled, the entity can't attack the owner
+# however, it won't affect to an owned entity such as wolf.
+  enable: true
+# When you attack/got attacked by an entity/player, owned entity within specified radius will help you to kill that entity
+# however, it won't always follow you, so make sure you always catch them back to release them later.
+# only hostile mobs will help you during the combat, other entities like cow, sheep, etc, they won't help you.
+  assist-radius: 10
+# Check owner using UUID. Make it "false" if your server is in offline mode.
+  use-uuid: true
+# Tameable captureballs (excluded for External Ball Type, note that SAFARI & NET ball is always not tableable)
+# Rest of balls are configurable on the "balls.yml"
+  tameable:
+  - LOVE
+# Allow players to transfer their ball's ownership
+# Rest of balls are configurable on the "balls.yml"
+  allow-transfer-ownership:
+  - LOVE
+# Allow mobs to attack whatever they want (except their owner)
+# if true, this settings is changeable in captureball Settings Menu
+  damage-others: true
+# Rest of balls are configurable on the "balls.yml"
+  damage-others-ball:
+  - LOVE
+# Allow tamed MOBS to follow their owner
+# if true, this settings is changeable in captureball Settings Menu
+  allow-to-follow: true
+# Rest of balls are configurable on the "balls.yml"
+  allow-to-follow-ball:
+  - LOVE
+# The range of entity will follow the player
+# the entity will start following within the maximum (max) radius
+# and the entity will stop following at the minimum (min) range.
+# entities outside of maximum (max) radius will not follow the player
+# this is useful to prevent massive lag
+  follow-range:
+    min: 4
+    max: 15
+
+# Let the mobs say something when it doing something
+# Editable & Accessible from the settings menu. ("guis.yml")
+greeting-system:
+  # This still can be disabled from the settings menu.
+  enable: true
+  #
+  #  GREETINGS TYPES
+  #  IDLE - shown when the Mobs idle near their owner
+  #  FOLLOWING - shown when the Mobs following their owner
+  #  DEFEND - shown when other mobs attacked their owner and the owned mobs attack the mobs to defend their owner
+  #  ATTACK - shown when mobs helping their owners to attack another mob.
+  #  DIED - shown when the mob died.  
+  #  HARMING - shown when the owner damage their own mobs.
+  #
+  #  NOTE:
+  #  IDLE, FOLLOWING, DEFEND, ATTACK, and HARMING requires TAMING SYSTEM to be enabled.
+  #  DIED doesn't need TAMING SYSTEM to be enabled, but you can enabled it only for
+  #  tamed animals. Read the details below.
+  #
+  # 
+  #  Placeholders:
+  #  <player> - the player (owner)
+  #
+  #  You can use ";" to make new line in messages.
+  idle-enable: true
+  # Percentage of the message being displayed
+  idle-percentage: 60
+  # the messages, cannot be edited by Players sorry :( to prevent cheat/abusing that makes data/server crash.
+  idle:
+  - "Hi! <player>"
+  - "I'm here!"
+  - "I'm ready!"
+  following-enable: true
+  following-percentage: 60
+  following:
+  - "Hold on!"
+  - "I'm coming"
+  defend-owner-enable: true
+  defend-owner-percentage: 30
+  defend-owner:
+  - "Don't touch my OWNER!"
+  - "Don't you dare attack <player>!"
+  - "Go away from my OWNER"
+  harming-enable: true
+  harming-percentage: 100
+  harming:
+  - "Ouch </3;Don't hurt me :("
+  - "Don't hurt me :("
+  - "Im your Pokemon :<"
+  - "Stop pls.;I got damaged"
+  # "Attack" won't shown when your mobs attack animals. It must be CREATURE
+  # that attack the mob back when its attacked by your mob.
+  attack-enable: true
+  attack-percentage: 35
+  attack:
+  - "FIGHT!"
+  - "Come on! I'm not afraid of you!"
+  died-enable: true
+  died-percentage: 100
+  # This means, it's not only for tamed mobs. Its for all Mobs.
+  died-forall: true
+  # Some of them taken from Movie Quotes :D
+  died:
+  - "You will not hear me scream."
+  - "I always hated crossbows. Take too long to load."
+  - "Mother"
+  - "Motherf..."
+  - "I don't feel so good"             #   |\ |  /\ 
+  - "Mr. Stark i don't feel so good"   #   | \|  \/ . . . . .  
+  - "Good bye"
+  - "Pull my finger"
+  - "farewell"
+  - "You always were an a**hole, Human"
+  - "Corn nuts!"
+  - "This is what i get for darting a nun?"
+  - "I don't need forever"
+  - "Cheater!"
+  - "Rosebud"
+
+#The data lore style on item-filled (<data>)
+data-lore-style: "&8■ &9<key> &7- &6<value>"
+
+#Destroy missed captureballs, if false the missed captureballs will dropped instead.
+destroy-missed-captureballs: false
+
+#Play effect when catched/relased (affect on all ball types)
+effect: ENDER_SIGNAL
+
+#Simplify item lore and only show necessary data
+show-only-necessary-data: true
+
+#Show negative value on item lore (e.g. -1, -149, etc)
+show-negative-value-data: false
+
+#Show all MOB attributes
+show-mob-attributes: true
+
+# -- LOVE BALL --
+# Love ball catch and heal the entity inside.
+# This BALL type is system ball that contains special abilities.
+# You can only modify this ball from "config.yml" not "balls.yml"
+
+#Play sound when catched/released (per ball types)
+love-sound: BLOCK_METAL_FALL
+
+#Ball Sell Price, (-1 to make it not sellable)
+love-sell-price: -1
+
+#Ball Buy Prices, (-1 to make it not buyable)
+love-price: 55000
+
+#Allow renaming using nametag directly on the ball
+love-nametag-renaming: true
+
+#Drop filled captureball after catched an entity, if false, the filled captureball will automatically added to your inventory
+love-drop-at-place: true
+
+#The item when it has no entity in it
+love-empty:
+  display: "&7&lLOVE&d&lBALL"
+  lore:
+  - "&7This item can hold an entity"
+  - "&7"
+  - "&b&oClick on an entity with this"
+  - "&b&oitem to catch the entity"
+  type: ENDER_PEARL
+  glowing: false
+#The item when its filled with an entity
+love-filled:
+  display: "&f&lLOVE&d&lBALL"
+  lore:
+  - "&7This item contains an entity"
+  - "&7with data:"
+  - "&e<data>"
+  - "&7"
+  - "&b&oClick on a block with this"
+  - "&b&oitem to spawn this entity"
+  type: ENDER_PEARL
+  glowing: true
+#The crafting recipe, Shaped Recipe
+love-recipe:
+  enable: true
+  name: LoveRecipe
+  items:
+    u: MILK_BUCKET
+    v: NETHER_STAR
+    x: CHEST
+    y: REDSTONE
+  recipe-pattern: "vuv,yxy,yyy"
